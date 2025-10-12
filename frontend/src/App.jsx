@@ -8,7 +8,6 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 const Home = lazy(() => import("./pages/PublicPages/Home"));
 const Layout = lazy(() => import("./components/Layout/Layout"));
 const Register = lazy(() => import("./pages/AuthPages/Register"));
-
 const ForgotPassword = lazy(() => import("./pages/AuthPages/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/AuthPages/ResetPassword"));
 const Verification = lazy(() => import("./pages/AuthPages/Verification"));
@@ -21,6 +20,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Loader from "./components/Loader/Loader";
 import Login from "./pages/AuthPages/Login";
+import TermsAndConditions from "./pages/PublicPages/TermsAndConditions";
+import Sitemap from "./pages/PublicPages/SiteMap";
+import FAQ from "./pages/PublicPages/FAQ";
+import CookieConsent from "./pages/PublicPages/CookieConsent";
+import PrivacyPolicy from "./pages/PublicPages/PrivacyPolicy";
+// ❌ REMOVED DUPLICATE IMPORTS - About, Contact, Home are already lazy loaded above
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -33,14 +39,9 @@ const App = () => {
   }, [dispatch]);
 
   const { theme, setTheme } = useTheme();
-  // if (loading) {
-  //   return (
-  //     <Loader />
-  //   )
-  // }
 
-  // *This will be replaced by the authenticated selector from user slice
   const isAuthenticated = false;
+  
   return (
     <Suspense
       fallback={
@@ -49,7 +50,6 @@ const App = () => {
         </div>
       }
     >
-      {/* USER ROUTES */}
       <Routes>
         <Route path="/" element={<AuthPageLayout />}>
           <Route path="/signup" element={<Register />} />
@@ -76,18 +76,14 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/password/reset/:token" element={<ResetPassword />} />
           <Route path="/verify-otp" element={<Verification />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/map" element={<Sitemap />} />
+          <Route path="/policy" element={<PrivacyPolicy />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/cookie" element={<CookieConsent />} />
         </Route>
-        <Route />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
-
-        {/* ADMIN ONLY ROUTES */}
-        {/* <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/users" element={<div>Users Page</div>} />
-        <Route path="/admin/reports" element={<div>Reports Page</div>} />
-        <Route path="/admin/analytics" element={<div>Analytics Page</div>} />
-        <Route path="/admin/settings" element={<div>Settings Page</div>} />
-        <Route path="/admin/security" element={<div>Security Page</div>} /> */}
       </Routes>
     </Suspense>
   );
