@@ -1,8 +1,10 @@
 import React, { Suspense, lazy, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { useTheme } from "./context/ThemeContext";
+
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import {useTheme} from "./context/ThemeContext"
+
 
 // ⏳ Lazy loaded imports
 const Home = lazy(() => import("./pages/PublicPages/Home"));
@@ -21,6 +23,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Loader from "./components/Loader/Loader";
 import Login from "./pages/AuthPages/Login";
+import NotFoundPage from "./pages/ErrorPages/NotFound";
+import ForbiddenPage from "./pages/ErrorPages/Forbidden";
+import ServerErrorPage from "./pages/ErrorPages/ServerError";
+import ErrorBoundaryPage from "./pages/ErrorPages/ErrorBoundary";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -76,6 +82,11 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/password/reset/:token" element={<ResetPassword />} />
           <Route path="/verify-otp" element={<Verification />} />
+          <Route path="/not-found" element={<NotFoundPage />} />
+          <Route path="/forbidden" element={<ForbiddenPage />} />
+          <Route path="/server" element={<ServerErrorPage />} />
+          <Route path="/error-boundary" element={<ErrorBoundaryPage />} />
+          
         </Route>
         <Route />
 
