@@ -40,7 +40,7 @@ const App = () => {
   // }
 
   // *This will be replaced by the authenticated selector from user slice
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   return (
     <Suspense
       fallback={

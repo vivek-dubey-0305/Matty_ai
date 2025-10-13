@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { api_user } from '../../../api/api';
 
 // ============================================================================
 // Async Thunks
@@ -8,8 +9,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const registerUser = createAsyncThunk(
   'user/register',
   async (userData, { rejectWithValue }) => {
+    console.log("Registe user")
     try {
-      const response = await fetch('/api/v1/users/register', {
+      const response = await fetch(`${api_user}register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +37,7 @@ export const loginUser = createAsyncThunk(
   'user/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/login', {
+      const response = await fetch(`${api_user}login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +63,7 @@ export const logoutUser = createAsyncThunk(
   'user/logout',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/logout', {
+      const response = await fetch(`${api_user}logout`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -84,7 +86,7 @@ export const refreshAccessToken = createAsyncThunk(
   'user/refreshToken',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/refresh-token', {
+      const response = await fetch(`${api_user}refresh-token`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -107,7 +109,7 @@ export const getLoggedInUserInfo = createAsyncThunk(
   'user/getUserInfo',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/me', {
+      const response = await fetch(`${api_user}me`, {
         credentials: 'include',
       });
 
@@ -129,7 +131,7 @@ export const sendOtpToUser = createAsyncThunk(
   'user/sendOtp',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/send-otp', {
+      const response = await fetch(`${api_user}send-otp`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -152,7 +154,7 @@ export const verifyOtpForUser = createAsyncThunk(
   'user/verifyOtp',
   async (otpData, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/verify-otp', {
+      const response = await fetch(`${api_user}verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -179,7 +181,7 @@ export const sendResetPasswordLinkToUser = createAsyncThunk(
   'user/sendResetLink',
   async (email, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/forgot-password', {
+      const response = await fetch(`${api_user}forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -205,7 +207,7 @@ export const resetPassword = createAsyncThunk(
   'user/resetPassword',
   async ({ token, password }, { rejectWithValue }) => {
     try {
-      const response = await fetch(`/api/v1/users/reset-password/${token}`, {
+      const response = await fetch(`${api_user}reset-password/${token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -231,7 +233,7 @@ export const changeCurrentPassword = createAsyncThunk(
   'user/changePassword',
   async (passwordData, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/change-password', {
+      const response = await fetch(`${api_user}change-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -258,7 +260,7 @@ export const updateUserProfile = createAsyncThunk(
   'user/updateProfile',
   async (profileData, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/update-profile', {
+      const response = await fetch(`${api_user}update-profile`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -288,7 +290,7 @@ export const updateUserAvatar = createAsyncThunk(
       const formData = new FormData();
       formData.append('avatar', avatarFile);
 
-      const response = await fetch('/api/v1/users/update-avatar', {
+      const response = await fetch(`${api_user}update-avatar`, {
         method: 'PATCH',
         credentials: 'include',
         body: formData,
@@ -312,7 +314,7 @@ export const deleteUser = createAsyncThunk(
   'user/deleteUser',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/users/delete', {
+      const response = await fetch(`${api_user}delete`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -341,7 +343,7 @@ const initialState = {
   refreshToken: null,
   
   // Loading States
-  loading: false, // General loading
+  loading: false, // General loading -> 
   authLoading: false, // Authentication specific loading
   profileLoading: false, // Profile update loading
   avatarLoading: false, // Avatar upload loading
@@ -684,6 +686,8 @@ export default userSlice.reducer;
 // ============================================================================
 
 export const selectUser = (state) => state.user.user;
+// const {loading..} = useSelector((state)=> state.user)
+//  consr {loadin} = useSelector(selectLoading)
 export const selectAccessToken = (state) => state.user.accessToken;
 export const selectRefreshToken = (state) => state.user.refreshToken;
 export const selectIsAuthenticated = (state) => !!state.user.accessToken;

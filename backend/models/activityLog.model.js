@@ -3,6 +3,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const actionSchema = new Schema(
+  // mongoos.Schema*
   {
     action: {
       type: String,
