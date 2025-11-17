@@ -1,6 +1,8 @@
 Matty_AI
 “One tool, many designs — supercharged with AI.”
 
+liveURL : https://matty-ai-two.vercel.app/
+
 Matty_AI is a web application where users can visually design graphics (posters, social media assets, banners, etc.) and leverage AI assist to enhance, suggest, or auto-correct visual elements.
 
 Features
